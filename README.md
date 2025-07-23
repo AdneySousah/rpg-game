@@ -25,6 +25,8 @@
 - [x] Exclusão de personagem
 - [x] Rotas protegidas com componente `<Private />`
 - [x] Salvamento e carregamento automático dos dados via `onSnapshot`
+- [x] Sistema de batalha com monstros e ganho de XP
+
 
 ---
 
@@ -32,7 +34,6 @@
 
 - [ ] Edição de personagem
 - [ ] Sistema de slots de equipamento (capa, elmo, espada, armadura)
-- [ ] Sistema de batalha com monstros e ganho de XP
 - [ ] Barra de progresso de nível
 
 ---
