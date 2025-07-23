@@ -126,3 +126,36 @@
     word-wrap: break-word;
     /* para quebrar textos longos */
 }
+
+.atribute-Items{
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.my-atributes{
+    margin-right: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    
+   
+}
+
+.my-atributes p{
+    text-align: center;
+    
+}
+
+.my-atributes img{
+    width: 50px;
+    margin-top: -10px;
+    margin-left: 20px;
+     transition: 0.5s ease-in-out;
+}
+
+.my-atributes img:hover{
+  
+    transform: scale(1.2);
+}

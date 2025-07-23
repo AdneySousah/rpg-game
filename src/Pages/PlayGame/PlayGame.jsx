@@ -1,6 +1,7 @@
 
 import HeaderComponent from '../../Components/Header/HeaderComponent'
 
+
 import { useContext, useState, useEffect } from 'react'
 import { PersonAuthContext } from '../../contexts/person'
 import { MonsterAutContext } from '../../contexts/monster'
@@ -11,18 +12,21 @@ import './PlayGame.css'
 
 import iconPlayer from '../../assets/iconPlayer.png'
 import iconMonster from '../../assets/iconMonster.png'
+import bagPlayer from '../../assets/bag.png'
 function PlayGame() {
-    const { dadosMonster } = useContext(MonsterAutContext)
-    const { dadosPerson } = useContext(PersonAuthContext)
+
+    const { dadosMonster, UpdateMonster } = useContext(MonsterAutContext)
+    const { dadosPerson, UpdateStatusPlayer } = useContext(PersonAuthContext)
 
 
     const [vidaAtualPlayer, setVidaAtualPlayer] = useState(0)
 
     const [vidaAtualMonster, setVidaAtualMonster] = useState(0)
 
-
-    const [dano, setDano] = useState(0)
     const [logs, setLogs] = useState([])
+
+    const [scape, setScape] = useState(false)
+
 
 
 
@@ -31,11 +35,52 @@ function PlayGame() {
             setVidaAtualPlayer(dadosPerson[0].life)
             setVidaAtualMonster(dadosMonster[0].life)
         }
+
     }, [dadosPerson, dadosMonster])
 
 
 
 
+    function CalcPlayerLevel() {
+
+        /* calculo de exp life e lvel do player */
+        const lifeCalc = parseInt(dadosPerson[0].life)
+        const expCalc = parseInt(dadosPerson[0].exp) + parseInt(dadosMonster[0].expGanho)
+        let newLevel = parseInt(dadosPerson[0].nivel)
+        let newExp = 0
+        let novoLife = 0
+        let Pontos = 0
+
+
+        if (expCalc >= dadosPerson[0].expProxLevel) {
+            newLevel += 1
+            newExp = expCalc + (expCalc * 0.5)
+            novoLife = lifeCalc + (lifeCalc * 0.3)
+            Pontos = dadosPerson[0].Pontos + 1
+
+        }
+        else {
+            newLevel = parseInt(dadosPerson[0].nivel)
+            newExp = dadosPerson[0].expProxLevel
+            novoLife = dadosPerson[0].life
+            Pontos = dadosPerson[0].Pontos
+            console.log('fazendo calculo')
+        }
+
+        UpdateStatusPlayer(expCalc, newLevel, newExp, novoLife, Pontos)
+
+
+        /* calculo de lvl life e xp ganho do mosnter */
+        const lifeCalcMonster = parseInt(dadosMonster[0].life)
+        const newExpMonster = parseInt(dadosMonster[0].expGanho)
+        const newLevelMonster = parseInt(dadosMonster[0].level)
+
+        UpdateMonster(lifeCalcMonster, newExpMonster, newLevelMonster)
+
+
+
+
+    }
 
     function atacckPerson() {
         // Dano do jogador no monstro
@@ -47,6 +92,7 @@ function PlayGame() {
 
             if (novaVida <= 0) {
                 console.log("🎉 Monstro derrotado!")
+                CalcPlayerLevel()
                 return 0
             }
             return novaVida
@@ -55,7 +101,7 @@ function PlayGame() {
         // Dano do monstro no jogador
         const contraAtaque = Math.floor(Math.random() * 6) // de 0 a 5
         setVidaAtualPlayer(prev => {
-            const novaVida = prev - contraAtaque
+            const novaVida = prev - (contraAtaque * 4)
             if (novaVida <= 0) {
                 console.log("💀 Você foi derrotado!")
                 return 0
@@ -79,6 +125,7 @@ function PlayGame() {
 
             if (novaVida <= 0) {
                 console.log("🎉 Monstro derrotado!")
+                CalcPlayerLevel()
                 return 0
             }
             return novaVida
@@ -87,7 +134,7 @@ function PlayGame() {
         // Dano do monstro no jogador
         const contraAtaque = Math.floor(Math.random() * 6) // de 0 a 5
         setVidaAtualPlayer(prev => {
-            const novaVida = prev - contraAtaque
+            const novaVida = prev - (contraAtaque * 4)
             if (novaVida <= 0) {
                 console.log("💀 Você foi derrotado!")
                 return 0
@@ -104,13 +151,55 @@ function PlayGame() {
         setLogs(prev => [`➡️ ${texto}`, ...prev.slice(0, 4)]) // mantêm até 5 linhas
     }
 
-    
+
+    function HealPerson() {
+        const HealLife = Math.floor(Math.random() * 30)
+        const contraAtaque = Math.floor(Math.random() * 6) // de 0 a 5
+
+        setVidaAtualPlayer(prev => {
+            // Primeiro aplica a cura (sem ultrapassar a vida máxima)
+            let novaVida = Math.min(prev + HealLife, dadosPerson[0].life);
+
+            // Depois aplica o contra-ataque (sem deixar a vida negativa)
+            novaVida = Math.max(novaVida - (contraAtaque * 4), 0);
+
+
+
+            // Verifica se o jogador foi derrotado
+            if (novaVida <= 0) {
+                return
+            }
+
+            return novaVida;
+        });
+        adicionarLog(`Você curou ${HealLife} de vida`)
+        adicionarLog(`Você recebeu ${contraAtaque} de dano`)
+    }
+
+
+    function scapePerson() {
+        setScape(true)
+
+    }
+
+    function ReloadPage() {
+        setVidaAtualMonster(dadosMonster[0]?.life)
+        setVidaAtualPlayer(dadosPerson[0]?.life)
+        setScape(false)
+
+    }
+
+    function myAtributes(){
+        setShowModal(true)
+        showModal? console.log('true',showModal):console.log('false',showModal)
+    }
     if (dadosPerson.length == 0 && dadosMonster.length == 0) {
         return (
 
             <div className="content">
 
                 <HeaderComponent />
+
                 <div className="no-load">
                     <h3>Voce precisa criar um personagem para jogar</h3>
                     <Link to="/newPerson">Criar um personagem</Link>
@@ -129,8 +218,20 @@ function PlayGame() {
 
                 <div className='container-player'>
                     <div className='info-player'>
-                        <img src={iconPlayer} alt="player" />
-                        <p>Nome: {dadosPerson[0]?.namePerson}</p>
+                        <div className='atribute-Items'>
+                            <div>
+                                <img src={iconPlayer} alt="player" />
+                                <p>Nome: {dadosPerson[0]?.namePerson}</p>
+                            </div>
+                            <div className='my-atributes'  onClick={myAtributes}>
+                                <p> Meus atributos</p>
+                               
+                                <img src={bagPlayer} alt="mochila do jogador" />
+                            </div>
+                            
+
+                        </div>
+
 
                         <div className='player-life'>
                             <p>Life: {vidaAtualPlayer}</p>
@@ -154,11 +255,28 @@ function PlayGame() {
                             vidaAtualMonster === 0 ?
                                 (
                                     <button >Proximo Level</button>
+                                ) : vidaAtualPlayer === 0 ? (
+                                    <>
+                                        <h2>Voce perdeu</h2>
+                                        <button>Tentar Novamente</button>
+                                    </>
                                 ) : (
                                     <>
-                                        <button onClick={atacckPerson}>Atacar</button>
-                                        <button onClick={atacckPersonSpecial}>Especial</button>
-                                        <button>Fugir</button>
+
+
+                                        {
+                                            scape ? <button onClick={ReloadPage}>Novo Jogo</button>
+                                                :
+                                                <>
+                                                    <button onClick={atacckPerson}>Atacar</button>
+                                                    <button onClick={atacckPersonSpecial}>Especial</button>
+                                                    <button onClick={HealPerson}>Curar</button>
+
+
+                                                    <button onClick={scapePerson}>Fugir</button>
+                                                </>
+                                        }
+
                                     </>
                                 )
 
@@ -178,7 +296,7 @@ function PlayGame() {
                             <p>Life: {vidaAtualMonster}</p>
                             <div className='life'>
                                 <div className='life-total'>
-                                    <div className='life-atual' style={{ width: `${(vidaAtualMonster / dadosPerson[0]?.life) * 100}%` }}>
+                                    <div className='life-atual' style={{ width: `${(vidaAtualMonster / dadosMonster[0]?.life) * 100}%` }}>
                                         <p>{vidaAtualMonster}</p>
                                     </div>
                                 </div>
@@ -186,6 +304,7 @@ function PlayGame() {
 
                         </div>
                         <p>Level: {dadosMonster[0]?.level}</p>
+                        <p>Exp ganho: {dadosMonster[0]?.expGanho}</p>
 
                     </div>
                 </div>
@@ -199,7 +318,7 @@ function PlayGame() {
                 </div>
 
             </div>
-
+       
         </div>
     )
 }

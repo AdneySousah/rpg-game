@@ -8,7 +8,7 @@ import './Dashboard.css'
 import { Link } from "react-router-dom";
 
 function Dashboard() {
-    const navigate = useNavigate()
+
     
     const { dadosPerson, DeletePerson } = useContext(PersonAuthContext)
 
@@ -54,6 +54,7 @@ function Dashboard() {
                                 <th>Exp</th>
                                 <th>Life</th>
                                 <th>Exp Proximo Level</th>
+                                <th>Pontos a distribuir</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -66,6 +67,7 @@ function Dashboard() {
                                 <td>{dadosPerson[0]?.exp}</td>
                                 <td>{dadosPerson[0]?.life}</td>
                                 <td>{dadosPerson[0]?.expProxLevel}</td>
+                                <td>{dadosPerson[0]?.Pontos}</td>
                                 
 
                                 <td className="btns">
