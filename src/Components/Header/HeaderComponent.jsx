@@ -20,7 +20,7 @@ function HeaderComponent() {
             <nav className="navbar">
             <Link to='/dashboard'>Perfil do personagem</Link>
             <Link to='/newPerson'>Criar personagem</Link>
-            <Link>Jogar</Link>
+            <Link to='/playgame'>Jogar</Link>
             <Link>Seus Atributos</Link>
             
             <button onClick={ExitUser}>Logout</button>

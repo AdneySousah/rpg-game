@@ -51,6 +51,9 @@ function Dashboard() {
                                 <th>Corpo</th>
                                 <th>Classe</th>
                                 <th>Nível</th>
+                                <th>Exp</th>
+                                <th>Life</th>
+                                <th>Exp Proximo Level</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -60,6 +63,10 @@ function Dashboard() {
                                 <td>{dadosPerson[0]?.body}</td>
                                 <td>{dadosPerson[0]?.classPerson}</td>
                                 <td>{dadosPerson[0]?.nivel}</td>
+                                <td>{dadosPerson[0]?.exp}</td>
+                                <td>{dadosPerson[0]?.life}</td>
+                                <td>{dadosPerson[0]?.expProxLevel}</td>
+                                
 
                                 <td className="btns">
                                     <button >Editar</button>

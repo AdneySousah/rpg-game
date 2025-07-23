@@ -17,9 +17,6 @@ function PersonProvider({ children }) {
 
     const {user}= useContext(AuthContext)
 
-    
-
-
 
     useEffect(() => {
         if (!user?.uid) return;
@@ -36,7 +33,10 @@ function PersonProvider({ children }) {
                     hair: snapshot.data().hair,
                     classPerson: snapshot.data().classPerson,
                     nivel: snapshot.data().nivel,
-                    namePerson: snapshot.data().namePerson
+                    namePerson: snapshot.data().namePerson,
+                    exp: snapshot.data().exp,
+                    life: snapshot.data().life,
+                    expProxLevel: snapshot.data().expProxLevel
                 };
                 setDadosPerson([dados]);
             } else {
@@ -72,7 +72,8 @@ function PersonProvider({ children }) {
                     hair: snapshot.data().hair,
                     classPerson: snapshot.data().classPerson,
                     nivel: snapshot.data().nivel,
-                    namePerson: snapshot.data().namePerson
+                    namePerson: snapshot.data().namePerson,
+                    expProxLevel: snapshot.data().expProxLevel
                 };
 
                 setDadosPerson(prevList => [...prevList, dados]);
@@ -104,7 +105,11 @@ function PersonProvider({ children }) {
             classPerson: classPerson,
             namePerson: namePerson,
             id: user.uid,
-            nivel: 0
+            nivel: 0,
+            exp: 0,
+            expProxLevel:20,
+            life: 100
+
         })
             .then(() => {
                 alert('Personagem Criado')

@@ -4,6 +4,7 @@ import { AuthContext } from "../contexts/auth";
 
 
 function Private({children}){
+    
     const {signed,loading} = useContext(AuthContext)
     
 
