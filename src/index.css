@@ -1,0 +1,35 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+html, body, #root{
+  height: 100%;
+}
+
+body{
+  background-color: #efefef;
+  font: 14px;
+  font-family: sans-serif;
+  overflow: hidden;
+
+a{
+  text-decoration: none;
+  color: #000;
+}
+ul{
+  list-style: none;
+}
+
+button{
+  cursor: pointer;
+}
+
+
+.content{
+  display: flex;
+  background-color: #181c2e42;
+  
+}
