@@ -34,9 +34,6 @@
 - [ ] Sistema de slots de equipamento (capa, elmo, espada, armadura)
 - [ ] Sistema de batalha com monstros e ganho de XP
 - [ ] Barra de progresso de nível
-- [ ] Sistema de logout com confirmação
-- [ ] Animações e sons personalizados
-- [ ] Layout responsivo e melhorias de UI
 
 ---
 
