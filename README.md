@@ -28,7 +28,7 @@
 - [x] Sistema de batalha com monstros e ganho de XP
 
 
----
+--- 
 
 ## 🧠 Aprendizados
 
@@ -38,6 +38,13 @@ Este projeto me ajudou a entender na prática:
 - Como persistir e sincronizar dados em tempo real com Firebase
 - Como proteger rotas no React com base na autenticação
 - Como pensar em estrutura de dados e modularização de componentes
+
+---
+## Imagens
+
+![Tela Inicial](src/public%20Images%20Github/login.png)
+![Tela Registro](src/public%20Images%20Github/conta.png.png)
+![Tela Jogo](src/public%20Images%20Github/principal.png.png)
 
 ---
 
