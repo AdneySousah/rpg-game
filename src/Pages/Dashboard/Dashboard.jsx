@@ -7,15 +7,18 @@ import './Dashboard.css'
 
 import { Link } from "react-router-dom";
 
+
+
 function Dashboard() {
 
     
     const { dadosPerson, DeletePerson } = useContext(PersonAuthContext)
 
 
+
     async function excluirPersonagem() {
-        alert('personagem deletado')
-      
+   
+        
         await DeletePerson()
     }
 
@@ -65,13 +68,12 @@ function Dashboard() {
                                 <td>{dadosPerson[0]?.classPerson}</td>
                                 <td>{dadosPerson[0]?.nivel}</td>
                                 <td>{dadosPerson[0]?.exp}</td>
-                                <td>{dadosPerson[0]?.life}</td>
+                                <td>{ Math.round((dadosPerson[0]?.lifeAtributes *5)+dadosPerson[0]?.life)}</td>
                                 <td>{dadosPerson[0]?.expProxLevel}</td>
                                 <td>{dadosPerson[0]?.Pontos}</td>
                                 
 
                                 <td className="btns">
-                                    <button >Editar</button>
                                     <button onClick={excluirPersonagem}>Excluir</button>
                                 </td>
 
@@ -81,7 +83,7 @@ function Dashboard() {
                 </div>
             </div>
 
-        
+           
         </div>
 
 

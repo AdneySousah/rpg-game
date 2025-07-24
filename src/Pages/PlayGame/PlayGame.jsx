@@ -12,7 +12,7 @@ import './PlayGame.css'
 
 import iconPlayer from '../../assets/iconPlayer.png'
 import iconMonster from '../../assets/iconMonster.png'
-import bagPlayer from '../../assets/bag.png'
+
 function PlayGame() {
 
     const { dadosMonster, UpdateMonster } = useContext(MonsterAutContext)
@@ -32,7 +32,8 @@ function PlayGame() {
 
     useEffect(() => {
         if (dadosPerson.length > 0 && dadosMonster.length > 0) {
-            setVidaAtualPlayer(dadosPerson[0].life)
+            setVidaAtualPlayer( (dadosPerson[0]?.lifeAtributes *5)+dadosPerson[0]?.life)
+           
             setVidaAtualMonster(dadosMonster[0].life)
         }
 
@@ -88,7 +89,7 @@ function PlayGame() {
 
         // Reduz vida do monstro
         setVidaAtualMonster(prev => {
-            const novaVida = prev - danoNoMonstro
+            const novaVida = prev - (danoNoMonstro * 2 + (dadosPerson[0]?.strengthAtributes*5))
 
             if (novaVida <= 0) {
                 console.log("🎉 Monstro derrotado!")
@@ -121,7 +122,8 @@ function PlayGame() {
 
         // Reduz vida do monstro
         setVidaAtualMonster(prev => {
-            const novaVida = prev - (danoNoMonstro * 2)
+            const novaVida = prev - (danoNoMonstro * 2 + (dadosPerson[0]?.strengthAtributes*5))
+            
 
             if (novaVida <= 0) {
                 console.log("🎉 Monstro derrotado!")
@@ -184,15 +186,12 @@ function PlayGame() {
 
     function ReloadPage() {
         setVidaAtualMonster(dadosMonster[0]?.life)
-        setVidaAtualPlayer(dadosPerson[0]?.life)
+        setVidaAtualPlayer((dadosPerson[0]?.lifeAtributes *5)+dadosPerson[0]?.life)
         setScape(false)
 
     }
 
-    function myAtributes(){
-        setShowModal(true)
-        showModal? console.log('true',showModal):console.log('false',showModal)
-    }
+
     if (dadosPerson.length == 0 && dadosMonster.length == 0) {
         return (
 
@@ -223,10 +222,14 @@ function PlayGame() {
                                 <img src={iconPlayer} alt="player" />
                                 <p>Nome: {dadosPerson[0]?.namePerson}</p>
                             </div>
-                            <div className='my-atributes'  onClick={myAtributes}>
-                                <p> Meus atributos</p>
-                               
-                                <img src={bagPlayer} alt="mochila do jogador" />
+                            <div className='my-atributes'  >
+                                <h5> Meus atributos</h5>
+                                <h5>Pontos de vida: {dadosPerson[0]?.lifeAtributes}</h5>
+                                <h5>Vida total: {Math.round((dadosPerson[0]?.lifeAtributes *5)+dadosPerson[0]?.life)}</h5>
+                                <h5>Pontos de força:  {dadosPerson[0]?.strengthAtributes}</h5>
+                                <h5>Força total: {(dadosPerson[0]?.strengthAtributes *8)}</h5>
+                                <h5>Pontos disponiveis {dadosPerson[0]?.Pontos} </h5>
+
                             </div>
                             
 
@@ -234,11 +237,13 @@ function PlayGame() {
 
 
                         <div className='player-life'>
-                            <p>Life: {vidaAtualPlayer}</p>
+                            <p>Life: {Math.round(vidaAtualPlayer)}</p>
                             <div className='life'>
                                 <div className='life-total'>
+
+                                    
                                     <div className='life-atual' style={{ width: `${(vidaAtualPlayer / dadosPerson[0]?.life) * 100}%` }}>
-                                        <p>{vidaAtualPlayer}</p>
+                                        <p>{Math.round(vidaAtualPlayer)}</p>
                                     </div>
                                 </div>
                             </div>
@@ -258,7 +263,7 @@ function PlayGame() {
                                 ) : vidaAtualPlayer === 0 ? (
                                     <>
                                         <h2>Voce perdeu</h2>
-                                        <button>Tentar Novamente</button>
+                                        <button onClick={ReloadPage}>Tentar Novamente</button>
                                     </>
                                 ) : (
                                     <>
@@ -293,11 +298,11 @@ function PlayGame() {
 
 
                         <div className='monster-life'>
-                            <p>Life: {vidaAtualMonster}</p>
+                            <p>Life: {Math.round(vidaAtualMonster)}</p>
                             <div className='life'>
                                 <div className='life-total'>
                                     <div className='life-atual' style={{ width: `${(vidaAtualMonster / dadosMonster[0]?.life) * 100}%` }}>
-                                        <p>{vidaAtualMonster}</p>
+                                        <p>{Math.round(vidaAtualMonster)}</p>
                                     </div>
                                 </div>
                             </div>

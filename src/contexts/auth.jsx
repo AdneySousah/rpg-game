@@ -7,7 +7,10 @@ import { useNavigate } from "react-router-dom";
 
 
 
+
 export const AuthContext = createContext()
+
+
 
 function AuthProvider({ children }) {
     const [user, setUser] = useState(null)
@@ -115,6 +118,7 @@ function AuthProvider({ children }) {
 
             }}>
             {children}
+           
         </AuthContext.Provider>
     )
 }

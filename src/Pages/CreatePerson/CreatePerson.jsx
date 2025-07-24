@@ -21,11 +21,12 @@ function CreatePerson() {
 
     const navigate = useNavigate()
 
-    function HandleNewPerson(e) {   
+    async function HandleNewPerson(e) {   
         
         e.preventDefault();
 
-        createNewPerson(hair, body, classPerson, namePerson)
+       await createNewPerson(hair, body, classPerson, namePerson)
+       
         navigate('/dashboard')
     
         
