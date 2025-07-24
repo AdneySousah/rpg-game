@@ -30,14 +30,6 @@
 
 ---
 
-## 🚧 Funcionalidades em desenvolvimento
-
-- [ ] Edição de personagem
-- [ ] Sistema de slots de equipamento (capa, elmo, espada, armadura)
-- [ ] Barra de progresso de nível
-
----
-
 ## 🧠 Aprendizados
 
 Este projeto me ajudou a entender na prática:
