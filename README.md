@@ -43,8 +43,8 @@ Este projeto me ajudou a entender na prática:
 ## Imagens
 
 ![Tela Inicial](src/public%20Images%20Github/login.png)
-![Tela Registro](src/public%20Images%20Github/conta.png.png)
-![Tela Jogo](src/public%20Images%20Github/principal.png.png)
+![Tela Registro](src/public%20Images%20Github/conta.png)
+![Tela Jogo](src/public%20Images%20Github/principal.png)
 
 ---
 
